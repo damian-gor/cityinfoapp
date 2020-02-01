@@ -1,8 +1,6 @@
 package com.cityinfoapp.cityinfoservice.resources;
 
-import com.cityinfoapp.cityinfoservice.models.CityInfo;
-import com.cityinfoapp.cityinfoservice.models.Country;
-import com.cityinfoapp.cityinfoservice.models.Weather;
+import com.cityinfoapp.cityinfoservice.models.*;
 import com.cityinfoapp.cityinfoservice.services.CountryInfo;
 import com.cityinfoapp.cityinfoservice.services.WeatherInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Arrays;
 
 @RestController
 @RequestMapping("/city")
@@ -31,11 +31,21 @@ public class CityInfoResource {
     private CountryInfo countryInfo;
 
     @RequestMapping("/{cityId}")
-    public CityInfo getWeatherResponse(@PathVariable("cityId") String cityId) {
+    public CityInfoResponse getWeatherResponse(@PathVariable("cityId") String cityId) {
         Weather weather = weatherInfo.getWeather(cityId);
         Country country = countryInfo.getCountry(weather);
 
-        return new CityInfo(weather, country);
+        return new CityInfoResponse(
+                weather.getWeather(),
+                weather.getMain().getTemp(),
+                weather.getMain().getFeels_like(),
+                weather.getMain().getPressure(),
+                weather.getMain().getHumidity(),
+                country.getName(),
+                country.getCapital(),
+                country.getSubregion(),
+                country.getPopulation(),
+                country.getArea());
     }
 
     @Value("${greeting: Welcome in our service.}")

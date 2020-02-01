@@ -10,4 +10,10 @@ public class WeatherDescriptionData {
     private String main;
     private String description;
 
+    @Override
+    public String toString() {
+        return "WeatherDescriptionData{" +
+                "description='" + description + '\'' +
+                '}';
+    }
 }
