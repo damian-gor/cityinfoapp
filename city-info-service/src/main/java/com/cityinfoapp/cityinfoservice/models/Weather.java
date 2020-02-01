@@ -4,12 +4,15 @@ import lombok.*;
 
 @Setter
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
 public class Weather {
     private WeatherBasicParametersData main;
     private WeatherDescriptionData[] weather;
     private CountryId sys;
+
+    public Weather(CountryId sys) {
+        this.sys = sys;
+    }
 }
 

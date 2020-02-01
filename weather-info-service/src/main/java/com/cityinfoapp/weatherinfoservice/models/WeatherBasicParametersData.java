@@ -5,9 +5,9 @@ import lombok.*;
 @Setter
 @Getter
 public class WeatherBasicParametersData {
-    private String temp;
-    private String pressure;
-    private String humidity;
-    private String feels_like;
+    private double temp;
+    private int pressure;
+    private int humidity;
+    private double feels_like;
 
 }

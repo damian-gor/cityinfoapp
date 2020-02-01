@@ -1,0 +1,30 @@
+package com.cityinfoapp.cityinfoservice.services;
+
+import com.cityinfoapp.cityinfoservice.models.Country;
+import com.cityinfoapp.cityinfoservice.models.Weather;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class CountryInfo {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @HystrixCommand(fallbackMethod = "getFallbackCountry", commandProperties={
+            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="3000"),
+            @HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="5"),
+            @HystrixProperty(name="circuitBreaker.errorThresholdPercentage",value="50"),
+            @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds",value="5000")})
+    public Country getCountry(Weather weather) {
+        return restTemplate.getForObject("http://country-info-service/country/" + weather.getSys().getCountry(),
+                Country.class);
+    }
+
+    public Country getFallbackCountry(Weather weather) {
+        return new Country("Country not found","","", 0, 0);
+    }
+}

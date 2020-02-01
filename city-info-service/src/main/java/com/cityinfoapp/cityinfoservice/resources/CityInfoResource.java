@@ -3,6 +3,8 @@ package com.cityinfoapp.cityinfoservice.resources;
 import com.cityinfoapp.cityinfoservice.models.CityInfo;
 import com.cityinfoapp.cityinfoservice.models.Country;
 import com.cityinfoapp.cityinfoservice.models.Weather;
+import com.cityinfoapp.cityinfoservice.services.CountryInfo;
+import com.cityinfoapp.cityinfoservice.services.WeatherInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +20,18 @@ public class CityInfoResource {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private WeatherInfo weatherInfo;
+
+    @Autowired
+    private CountryInfo countryInfo;
+
     @RequestMapping("/{cityId}")
     public CityInfo getWeatherResponse(@PathVariable("cityId") String cityId) {
-        Weather weather = restTemplate.getForObject("http://weather-info-service/weather/city/" + cityId, Weather.class);
-        Country country = restTemplate.getForObject("http://country-info-service/country/" + weather.getSys().getCountry(),
-                Country.class);
+        Weather weather = weatherInfo.getWeather(cityId);
+        Country country = countryInfo.getCountry(weather);
 
         return new CityInfo(weather, country);
     }
+
 }

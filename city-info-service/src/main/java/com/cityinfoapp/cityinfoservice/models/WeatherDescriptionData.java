@@ -4,10 +4,10 @@ import lombok.*;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
 public class WeatherDescriptionData {
     private String main;
     private String description;
+
 }
