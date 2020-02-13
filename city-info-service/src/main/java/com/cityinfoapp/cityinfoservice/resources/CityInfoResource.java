@@ -5,6 +5,8 @@ import com.cityinfoapp.cityinfoservice.models.*;
 import com.cityinfoapp.cityinfoservice.services.AES;
 import com.cityinfoapp.cityinfoservice.services.CountryInfo;
 import com.cityinfoapp.cityinfoservice.services.WeatherInfo;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -18,45 +20,32 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api")
 @EnableEurekaClient
 @RefreshScope
 public class CityInfoResource {
 
-    @GetMapping("/admin")
-    public String getAdminData(){
-        return AES.decrypt(confidentialInfo, secretKey);
-    }
-    @Value("${spring.admin.secret-info: ***** Confidential information *****}")
-    private String confidentialInfo;
-
-    @Value("${spring.admin.secret-key}")
-    private String secretKey;
-
-    @Value("${greeting: Welcome in our service.}")
-    private String greetingMessage;
-
-    @Value("${spring.application.name}")
-    private String applicationName;
-
-    @Value("${functionalityDescription}")
-    private String functionalityDescription;
-
     @GetMapping("/")
+    @ApiOperation(value= "Homepage",
+            notes = "Available to everyone.",
+            response = String.class)
     public String greeting(){
         return greetingMessage + applicationName + ". " + functionalityDescription;
     }
-    @Autowired
-    private RestTemplate restTemplate;
 
-    @Autowired
-    private WeatherInfo weatherInfo;
+    @GetMapping("/admin")
+    @ApiOperation(value= "Decrypts secret information intended only for the Administrator",
+            response = String.class)
+    public String getAdminData(){
+        return AES.decrypt(confidentialInfo, secretKey);
+    }
 
-    @Autowired
-    private CountryInfo countryInfo;
-
-    @RequestMapping("/city/{cityId}")
-    public CityInfoResponse getWeatherResponse(@PathVariable("cityId") String cityId) {
+    @GetMapping("/city/{cityId}")
+    @ApiOperation(value= "Provides info about selected city",
+            notes = "Info about current weather and country.",
+            response = CityInfoResponse.class)
+    public CityInfoResponse getWeatherResponse(@ApiParam(value= "Name of the city about which you want to receive information",
+            required = true) @PathVariable("cityId") String cityId) {
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Authorization", AccessToken.getAccessToken());
@@ -78,4 +67,28 @@ public class CityInfoResource {
                 country.getArea());
     }
 
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private WeatherInfo weatherInfo;
+
+    @Autowired
+    private CountryInfo countryInfo;
+
+    @Value("${spring.admin.secret-info: ***** Confidential information *****}")
+    private String confidentialInfo;
+
+    @Value("${spring.admin.secret-key}")
+    private String secretKey;
+
+    @Value("${greeting: Welcome in our service.}")
+    private String greetingMessage;
+
+    @Value("${spring.application.name}")
+    private String applicationName;
+
+    @Value("${functionalityDescription}")
+    private String functionalityDescription;
 }
