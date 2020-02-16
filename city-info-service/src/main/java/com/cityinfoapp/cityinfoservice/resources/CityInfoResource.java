@@ -3,8 +3,8 @@ package com.cityinfoapp.cityinfoservice.resources;
 import com.cityinfoapp.cityinfoservice.config.AccessToken;
 import com.cityinfoapp.cityinfoservice.models.*;
 import com.cityinfoapp.cityinfoservice.services.AES;
-import com.cityinfoapp.cityinfoservice.services.CountryInfo;
-import com.cityinfoapp.cityinfoservice.services.WeatherInfo;
+import com.cityinfoapp.cityinfoservice.services.CountryService;
+import com.cityinfoapp.cityinfoservice.services.WeatherService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api")
@@ -51,13 +50,13 @@ public class CityInfoResource {
         httpHeaders.add("Authorization", AccessToken.getAccessToken());
         HttpEntity<Country> countryInfoHttpEntity = new HttpEntity<>(httpHeaders);
 
-        Weather weather = weatherInfo.getWeather(cityId, countryInfoHttpEntity);
-        Country country = countryInfo.getCountry(weather, countryInfoHttpEntity);
+        Weather weather = weatherService.getWeather(cityId, countryInfoHttpEntity);
+        Country country = countryService.getCountry(weather, countryInfoHttpEntity);
 
         return new CityInfoResponse(
                 weather.getWeather(),
                 weather.getMain().getTemp(),
-                weather.getMain().getFeels_like(),
+                weather.getMain().getFeelsLike(),
                 weather.getMain().getPressure(),
                 weather.getMain().getHumidity(),
                 country.getName(),
@@ -67,15 +66,11 @@ public class CityInfoResource {
                 country.getArea());
     }
 
+    @Autowired
+    private WeatherService weatherService;
 
     @Autowired
-    private RestTemplate restTemplate;
-
-    @Autowired
-    private WeatherInfo weatherInfo;
-
-    @Autowired
-    private CountryInfo countryInfo;
+    private CountryService countryService;
 
     @Value("${spring.admin.secret-info: ***** Confidential information *****}")
     private String confidentialInfo;

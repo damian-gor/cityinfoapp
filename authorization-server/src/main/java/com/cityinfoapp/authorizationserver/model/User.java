@@ -28,19 +28,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "username")
     private String username;
-    @Column(name = "password")
     private String password;
-    @Column(name = "email")
     private String email;
-    @Column(name = "enabled")
     private boolean enabled;
-    @Column(name = "accountNonExpired")
     private boolean accountNonExpired;
-    @Column(name = "credentialsNonExpired")
     private boolean credentialsNonExpired;
-    @Column(name = "accountNonLocked")
     private boolean accountNonLocked;
 
 

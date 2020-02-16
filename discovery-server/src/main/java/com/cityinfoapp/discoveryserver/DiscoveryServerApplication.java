@@ -9,13 +9,8 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 @EnableEurekaServer
 public class DiscoveryServerApplication {
 
-	@Value("${my.greeting: default value}")
-	private static String test;
-
 	public static void main(String[] args) {
 		SpringApplication.run(DiscoveryServerApplication.class, args);
-
-		System.out.println(test);
 	}
 
 }

@@ -22,10 +22,16 @@ public class WeatherInfoResource {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Value("${url.open-weather}")
+    private String openWeatherUrl;
+
+    @Value("${url.open-weather.query-params}")
+    private String queryParamsUrl;
+
     @RequestMapping("/city/{cityId}")
     public Weather getWeatherInfo(@PathVariable ("cityId") String cityId) {
         Weather weather = restTemplate.getForObject(
-        "http://api.openweathermap.org/data/2.5/weather?q=" + cityId + "&units=metric&APPID=" + appId,
+        openWeatherUrl + cityId + queryParamsUrl + appId,
                 Weather.class
         );
         return weather;

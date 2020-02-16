@@ -5,14 +5,15 @@ APPLICATION'S STRUCTURE:
 -Service responsible for communication with application clients is city-info-service, which is fetching data from 
 weather-info-service and country-info-service. That services are getting data from other, open-access online APIs.
 
--The communication between microservices is supported by authorization / discovery and spring-cloud-configuration servers.
-Make sure you also download the "configrepo" folder.
+-The communication between microservices is supported by authorization / discovery and spring-cloud-configuration 
+servers. Configurations are fetched from remote GitHub repository.
 
 AUTHORIZATION-SERVER:
 
 -Please, create in MySQL new database, named "oauthdb".
 
--After initializing data by running AuthorizationServerApplication, please change file src/main/resources/data.sql to data.txt
+-After initializing data by running AuthorizationServerApplication, please change file src/main/resources/data.sql
+to data.txt (only if You are planning to restart the authorization-server).
 
 -In src/main/resources/application.yml file it was necessary for me to add additional parameters to spring.datasource.url
 property. In mostly cases value "jdbc:mysql://localhost:3306/oauthdb?createDatabaseIfNotExist=true" will be adequate.
