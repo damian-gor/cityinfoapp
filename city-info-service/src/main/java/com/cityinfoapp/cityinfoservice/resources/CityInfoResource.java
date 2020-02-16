@@ -56,7 +56,7 @@ public class CityInfoResource {
         return new CityInfoResponse(
                 weather.getWeather(),
                 weather.getMain().getTemp(),
-                weather.getMain().getFeelsLike(),
+                weather.getMain().getFeels_like(),
                 weather.getMain().getPressure(),
                 weather.getMain().getHumidity(),
                 country.getName(),
