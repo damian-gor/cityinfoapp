@@ -8,6 +8,6 @@ public class WeatherBasicParametersData {
     private double temp;
     private int pressure;
     private int humidity;
-    private double feels_like;
+    private double feelsLike;
 
 }

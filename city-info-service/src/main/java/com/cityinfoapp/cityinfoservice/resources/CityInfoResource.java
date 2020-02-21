@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
 @EnableEurekaClient
 @RefreshScope
 public class CityInfoResource {
@@ -56,7 +55,7 @@ public class CityInfoResource {
         return new CityInfoResponse(
                 weather.getWeather(),
                 weather.getMain().getTemp(),
-                weather.getMain().getFeels_like(),
+                weather.getMain().getFeelsLike(),
                 weather.getMain().getPressure(),
                 weather.getMain().getHumidity(),
                 country.getName(),
