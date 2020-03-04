@@ -1,0 +1,20 @@
+management.endpoints.web.exposure.include: "*"
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-server
+
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        serviceId: spring-cloud-config-server
+      failFast: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

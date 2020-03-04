@@ -25,7 +25,7 @@ public class CountryInfoResources {
 
     @RequestMapping("/{countryId}")
     @PreAuthorize("hasAuthority('get_data')")
-    public Country getWeatherInfo(@PathVariable("countryId") String countryId) {
+    public Country getCountryInfo(@PathVariable("countryId") String countryId) {
         Country country = restTemplate.getForObject(
                 restCountriesUrl + countryId,
                 Country.class);

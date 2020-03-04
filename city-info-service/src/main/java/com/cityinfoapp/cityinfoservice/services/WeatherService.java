@@ -24,7 +24,7 @@ public class WeatherService {
     private String weatherInfoUrl;
 
     @HystrixCommand(fallbackMethod="getFallbackWeather", commandProperties={
-            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="3000"),
+            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="6000"),
             @HystrixProperty(name="circuitBreaker.requestVolumeThreshold",value="5"),
             @HystrixProperty(name="circuitBreaker.errorThresholdPercentage",value="50"),
             @HystrixProperty(name="circuitBreaker.sleepWindowInMilliseconds",value="5000")})

@@ -1,0 +1,47 @@
+management.endpoints.web.exposure.include: "*"
+
+server:
+  port: 9292
+
+spring:
+  application:
+    name: authorization-server
+
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    config:
+      discovery:
+        enabled: true
+        serviceId: spring-cloud-config-server
+      failFast: true
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/oauth2?createDatabaseIfNotExist=true&useUnicode=true&amp&useJDBCCompliantTimezoneShift=true&amp&useLegacyDatetimeCode=false&amp&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    initialization-mode: always
+    continue-on-error: true
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
