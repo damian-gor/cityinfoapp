@@ -18,7 +18,8 @@ spring:
       failFast: true
 
   datasource:
-    url: jdbc:mysql://localhost:3306/oauth2?createDatabaseIfNotExist=true&useUnicode=true&amp&useJDBCCompliantTimezoneShift=true&amp&useLegacyDatetimeCode=false&amp&serverTimezone=UTC
+    # in my case it was necessary to add "&useUnicode=true&amp&useJDBCCompliantTimezoneShift=true&[...]"
+    url: jdbc:mysql://localhost:3306/oauth?createDatabaseIfNotExist=true&useUnicode=true&amp&useJDBCCompliantTimezoneShift=true&amp&useLegacyDatetimeCode=false&amp&serverTimezone=UTC
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
