@@ -27,7 +27,7 @@ public class CityInfoResource {
             notes = "Available to everyone.",
             response = String.class)
     public String greeting(){
-        return greetingMessage + applicationName + ". " + functionalityDescription;
+        return greetingMessage + " " + functionalityDescription;
     }
 
     @GetMapping("/admin")
@@ -78,9 +78,6 @@ public class CityInfoResource {
 
     @Value("${greeting: Welcome in our service.}")
     private String greetingMessage;
-
-    @Value("${spring.application.name}")
-    private String applicationName;
 
     @Value("${functionalityDescription}")
     private String functionalityDescription;

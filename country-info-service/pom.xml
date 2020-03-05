@@ -11,7 +11,7 @@
 	<groupId>com.cityinfoapp</groupId>
 	<artifactId>country-info-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>country-info</name>
+	<name>country-info-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

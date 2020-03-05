@@ -1,0 +1,17 @@
+spring.cloud.discovery.enabled: false
+spring.cloud.config.discovery.enabled: false
+spring.cloud.config.enabled: false
+
+
+###### Data from remote cfg #######
+spring.admin.secret-info: Tut5D0mmhoqcKvblXmswNmy/Z2SwaNrZ7YCOhjnSKsOEz+jOE5IX1VOzOboMcdscVdT9bRPxonk1bIOY35F/CA==
+spring.admin.secret-key: secretKey
+
+url.weatherService: http://localhost:8082/weather/city/
+url.countryService: http://localhost:8083/country/
+
+functionalityDescription: Enter the city name to receive information about the current weather and the country.
+
+
+
+

@@ -1,0 +1,4 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${DISCOVERY_SERVER:http://host.docker.internal:8761/eureka}

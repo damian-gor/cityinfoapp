@@ -1,0 +1,5 @@
+spring.cloud.discovery.enabled: false
+spring.cloud.config.discovery.enabled: false
+spring.cloud.config.enabled: false
+
+spring.datasource.url: jdbc:mysql://localhost:3306/test3?createDatabaseIfNotExist=true&useUnicode=true&amp&useJDBCCompliantTimezoneShift=true&amp&useLegacyDatetimeCode=false&amp&serverTimezone=UTC

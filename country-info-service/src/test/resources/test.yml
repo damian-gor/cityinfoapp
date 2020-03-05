@@ -1,0 +1,7 @@
+spring.cloud.discovery.enabled: false
+spring.cloud.config.discovery.enabled: false
+spring.cloud.config.enabled: false
+
+
+###### Data from remote cfg #######
+url.rest-countries: https://restcountries.eu/rest/v2/alpha/
